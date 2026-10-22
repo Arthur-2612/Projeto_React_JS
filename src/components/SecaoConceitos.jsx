@@ -10,7 +10,7 @@ const conceitos = [
     icon: '📄',
     titulo: 'JSX',
     descricao:
-      'Extensão de sintaxe que permite escrever estruturas semelhantes a HTML dentro do JavaScript. O JSX é transpilado para chamadas React.createElement().',
+      'Uma sintaxe familiar para descrever a interface dentro do JavaScript. A ferramenta de build transforma JSX em chamadas do runtime do React.',
     tag: 'Sintaxe',
     tagType: 'primary',
     exemplo: '<h1>Olá, {nome}!</h1>',
@@ -40,7 +40,7 @@ const conceitos = [
     icon: '⚡',
     titulo: 'Virtual DOM',
     descricao:
-      'Representação da interface em memória. O React calcula as diferenças (diffing) e atualiza apenas o que mudou no DOM real — mais eficiente.',
+      'Ao renderizar, o React compara a nova descrição da interface com a anterior e decide quais mudanças precisa aplicar. Não é uma garantia de que só um nó será atualizado.',
     tag: 'Performance',
     tagType: 'primary',
     exemplo: 'Mudança → Diff → Patch DOM',
@@ -50,7 +50,7 @@ const conceitos = [
     icon: '📋',
     titulo: 'Listas & Keys',
     descricao:
-      'O método map() transforma arrays em elementos JSX. A prop key ajuda o React a identificar quais itens foram adicionados, removidos ou reordenados.',
+      'O método map() transforma arrays em elementos JSX. Uma key estável ajuda o React a reconhecer a identidade de cada item entre renderizações.',
     tag: 'Coleções',
     tagType: 'secondary',
     exemplo: 'items.map(i => <li key={i.id}>{i.nome}</li>)',
@@ -116,7 +116,7 @@ function SecaoConceitos() {
               Conceitos do React
             </h2>
             <p className="section__description">
-              Os {conceitos.length} pilares essenciais estudados nesta aula, com exemplos práticos de cada um.
+              Um mapa rápido dos termos que aparecem nos exemplos. Abra um conceito, entenda a ideia e depois teste nas seções seguintes.
             </p>
           </div>
         </div>
