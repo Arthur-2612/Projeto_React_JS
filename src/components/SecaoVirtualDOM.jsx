@@ -44,7 +44,7 @@ function ContadorInterativo() {
 
   function incrementar() {
     const novoValor = contador + 1
-    setContador(novoValor)
+    setContador((atual) => atual + 1)
     setHistorico((prev) => [
       { id: Date.now(), acao: '+1', valor: novoValor },
       ...prev.slice(0, 4),
@@ -53,7 +53,7 @@ function ContadorInterativo() {
 
   function decrementar() {
     const novoValor = contador - 1
-    setContador(novoValor)
+    setContador((atual) => atual - 1)
     setHistorico((prev) => [
       { id: Date.now(), acao: '-1', valor: novoValor },
       ...prev.slice(0, 4),
@@ -278,8 +278,7 @@ function SecaoVirtualDOM() {
               🧪 Virtual DOM na Prática
             </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: '20px', lineHeight: '1.65' }}>
-              Cada clique dispara: estado novo → React re-executa o componente → compara com o Virtual DOM anterior
-              → atualiza <strong>apenas o número</strong> no DOM real.
+              Cada clique agenda um novo estado. O componente renderiza novamente; o React reconcilia a nova árvore com a anterior e aplica as mudanças necessárias. Observe o valor e o histórico mudarem juntos.
             </p>
             <ContadorInterativo />
           </div>
