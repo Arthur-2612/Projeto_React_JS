@@ -14,17 +14,22 @@ const navItems = [
   { id: 'vdom', label: 'Virtual DOM', icon: '⚡' },
 ]
 
-function Header({ activeSection, onNavigate }) {
+function Header({ activeSection, onNavigate, progress }) {
   return (
     <header className="header">
+      <div className="reading-progress" aria-hidden="true">
+        <span style={{ transform: `scaleX(${progress / 100})` }} />
+      </div>
       <div className="container">
         <div className="header__inner">
 
           {/* Logo — componente de identidade visual */}
           <div className="header__logo">
             <div className="header__logo-icon" aria-label="React Logo">⚛️</div>
-            <span className="header__logo-text">React Lab</span>
+            <a className="header__logo-text" href="#hero" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>React Lab</a>
           </div>
+
+          <span className="header__progress-label" aria-live="polite">Aula {Math.min(6, Math.floor((progress / 100) * 6) + 1)} de 6</span>
 
           {/* Navegação — renderização de lista com Keys + condicional de classe ativa */}
           <nav className="header__nav" aria-label="Navegação principal">
