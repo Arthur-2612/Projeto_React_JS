@@ -3,15 +3,7 @@
  * Demonstra: JSX, expressões JavaScript, componente sem props externas.
  */
 
-// Dados estáticos calculados via expressões JS — demonstra JSX com expressões
-const totalConceitos = 6
-const totalExemplos = 12
-const totalComponentes = 8
-
-function Hero() {
-  // Expressão JS dentro do JSX para calcular o ano
-  const anoAtual = new Date().getFullYear()
-
+function Hero({ onNavigate }) {
   return (
     <section className="hero" id="hero" aria-labelledby="hero-title">
       <div className="container">
@@ -19,34 +11,39 @@ function Hero() {
         {/* Badge de status */}
         <div className="hero__badge">
           <span className="hero__badge-dot" aria-hidden="true" />
-          Aula 08 — Frameworks Front-end {anoAtual}
+          UM GUIA PRÁTICO DE REACT · AULA 08
         </div>
 
         {/* Título principal com expressão JSX */}
         <h1 className="hero__title" id="hero-title">
-          Aprenda <span>React</span>
-          <br />na prática
+          Da ideia ao <span>componente.</span>
         </h1>
 
         {/* Subtítulo */}
         <p className="hero__subtitle">
-          Explore os fundamentos do React com exemplos interativos:
-          JSX, Componentes, Props, Virtual DOM, Listas e Renderização Condicional.
+          Em vez de decorar definições, experimente cada conceito e veja como ele muda a interface. Comece pelo básico e avance no seu ritmo.
         </p>
+
+        <div className="hero__actions">
+          <button className="hero__start" onClick={() => onNavigate('conceitos')}>
+            Começar pela primeira ideia <span aria-hidden="true">↓</span>
+          </button>
+          <span className="hero__note">6 tópicos · exemplos para testar</span>
+        </div>
 
         {/* Estatísticas — JSX com expressões JavaScript */}
         <div className="hero__stats">
           <div className="hero__stat">
-            <div className="hero__stat-value">{totalConceitos}</div>
-            <div className="hero__stat-label">Conceitos</div>
+            <div className="hero__stat-value">01</div>
+            <div className="hero__stat-label">Entenda a ideia</div>
           </div>
           <div className="hero__stat">
-            <div className="hero__stat-value">{totalExemplos}+</div>
-            <div className="hero__stat-label">Exemplos</div>
+            <div className="hero__stat-value">02</div>
+            <div className="hero__stat-label">Mude o exemplo</div>
           </div>
           <div className="hero__stat">
-            <div className="hero__stat-value">{totalComponentes}</div>
-            <div className="hero__stat-label">Componentes</div>
+            <div className="hero__stat-value">03</div>
+            <div className="hero__stat-label">Veja o resultado</div>
           </div>
         </div>
 
