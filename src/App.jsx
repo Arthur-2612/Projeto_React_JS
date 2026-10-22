@@ -1,120 +1,112 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+/**
+ * App — Componente raiz da aplicação React Lab.
+ *
+ * Esta aplicação demonstra todos os conceitos estudados na Aula 08:
+ * ✅ JSX — sintaxe e expressões JavaScript
+ * ✅ Componentes — criação, composição e reutilização
+ * ✅ Props — passagem de dados entre componentes
+ * ✅ Virtual DOM — renderização e reconciliação
+ * ✅ Listas e Keys — renderização de coleções de dados
+ * ✅ Renderização Condicional — controle de exibição da interface
+ *
+ * Disciplina: Frameworks Front-end
+ * Prof. Me. Deivison S. Takatu — SENAI
+ */
+import { useState, useEffect } from 'react'
+
+// Importação dos componentes — Árvore de componentes
+import Header from './components/Header'
+import Hero from './components/Hero'
+import SecaoConceitos from './components/SecaoConceitos'
+import SecaoComponentes from './components/SecaoComponentes'
+import SecaoProps from './components/SecaoProps'
+import SecaoListas from './components/SecaoListas'
+import SecaoCondicional from './components/SecaoCondicional'
+import SecaoVirtualDOM from './components/SecaoVirtualDOM'
+import Footer from './components/Footer'
+
+// IDs das seções para scroll e navegação — array para demonstrar Listas e Keys
+const secoes = ['conceitos', 'componentes', 'props', 'listas', 'condicional', 'vdom']
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Estado: seção ativa na navegação — demonstra useState e renderização reativa
+  const [secaoAtiva, setSecaoAtiva] = useState('conceitos')
+
+  // Efeito: observa qual seção está visível no scroll (IntersectionObserver)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setSecaoAtiva(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+
+    // Seleciona todos os elementos de seção e observa
+    secoes.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Função de navegação: scroll suave até a seção — passada como prop ao Header
+  function handleNavigate(secaoId) {
+    const elemento = document.getElementById(secaoId)
+    if (elemento) {
+      elemento.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+    setSecaoAtiva(secaoId)
+  }
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      {/*
+       * ÁRVORE DE COMPONENTES — App
+       * ├── Header (props: activeSection, onNavigate)
+       * ├── main
+       * │   ├── Hero
+       * │   ├── SecaoConceitos
+       * │   ├── SecaoComponentes
+       * │   ├── SecaoProps
+       * │   ├── SecaoListas
+       * │   ├── SecaoCondicional
+       * │   └── SecaoVirtualDOM
+       * └── Footer
+       */}
 
-      <div className="ticks"></div>
+      {/* Header recebe props: activeSection e onNavigate */}
+      <Header activeSection={secaoAtiva} onNavigate={handleNavigate} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <main id="main-content">
+        {/* Hero: apresentação da aplicação */}
+        <Hero />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        {/* Seção 1: Conceitos — Componentes + Props + Listas + Keys */}
+        <SecaoConceitos />
+
+        {/* Seção 2: Componentes — Composição + Árvore + Interatividade */}
+        <SecaoComponentes />
+
+        {/* Seção 3: Props — Passagem de dados + Tipos + Reutilização */}
+        <SecaoProps />
+
+        {/* Seção 4: Listas e Keys — map() + filter() + Busca + Empty State */}
+        <SecaoListas />
+
+        {/* Seção 5: Renderização Condicional — if/return + Ternário + && */}
+        <SecaoCondicional />
+
+        {/* Seção 6: Virtual DOM — Reconciliação + Contador + Histórico */}
+        <SecaoVirtualDOM />
+      </main>
+
+      {/* Footer: rodapé com informações da aula */}
+      <Footer />
     </>
   )
 }
