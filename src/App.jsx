@@ -31,6 +31,7 @@ const secoes = ['conceitos', 'componentes', 'props', 'listas', 'condicional', 'v
 function App() {
   // Estado: seção ativa na navegação — demonstra useState e renderização reativa
   const [secaoAtiva, setSecaoAtiva] = useState('conceitos')
+  const [progresso, setProgresso] = useState(0)
 
   // Efeito: observa qual seção está visível no scroll (IntersectionObserver)
   useEffect(() => {
@@ -51,7 +52,20 @@ function App() {
       if (el) observer.observe(el)
     })
 
-    return () => observer.disconnect()
+    function atualizarProgresso() {
+      const distancia = document.documentElement.scrollHeight - window.innerHeight
+      setProgresso(distancia > 0 ? Math.round((window.scrollY / distancia) * 100) : 0)
+    }
+
+    atualizarProgresso()
+    window.addEventListener('scroll', atualizarProgresso, { passive: true })
+    window.addEventListener('resize', atualizarProgresso)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', atualizarProgresso)
+      window.removeEventListener('resize', atualizarProgresso)
+    }
   }, [])
 
   // Função de navegação: scroll suave até a seção — passada como prop ao Header
@@ -80,11 +94,11 @@ function App() {
        */}
 
       {/* Header recebe props: activeSection e onNavigate */}
-      <Header activeSection={secaoAtiva} onNavigate={handleNavigate} />
+      <Header activeSection={secaoAtiva} onNavigate={handleNavigate} progress={progresso} />
 
       <main id="main-content">
         {/* Hero: apresentação da aplicação */}
-        <Hero />
+        <Hero onNavigate={handleNavigate} />
 
         {/* Seção 1: Conceitos — Componentes + Props + Listas + Keys */}
         <SecaoConceitos />
