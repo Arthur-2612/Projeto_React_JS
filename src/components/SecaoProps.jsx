@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 /**
  * SecaoProps — Demonstra o sistema de Props do React.
  * Demonstra: Props (tipos, passagem, desestruturação), Componentes reutilizáveis.
@@ -90,6 +92,9 @@ const tiposProps = [
 
 // ---------- Componente Principal ----------
 function SecaoProps() {
+  const [nomePreview, setNomePreview] = useState('Seu nome')
+  const [destaquePreview, setDestaquePreview] = useState(true)
+
   return (
     <section className="section" id="props" aria-labelledby="props-title">
       <div className="container">
@@ -130,6 +135,28 @@ function SecaoProps() {
             <div className="info-panel" style={{ marginTop: '20px' }}>
               <strong>🔑 Mesmo componente</strong> <code>{'<Saudacao />'}</code>, dados diferentes via props
               — isso é <strong>reutilização</strong>!
+            </div>
+
+            <div className="demo-box props-playground" style={{ marginTop: '20px' }}>
+              <div className="demo-box__title">Agora você escolhe as props</div>
+              <label className="props-playground__label" htmlFor="nome-preview">Nome enviado ao componente</label>
+              <input
+                id="nome-preview"
+                className="search-box__input"
+                value={nomePreview}
+                onChange={(event) => setNomePreview(event.target.value)}
+                maxLength={32}
+                placeholder="Digite um nome"
+              />
+              <label className="props-playground__toggle">
+                <input
+                  type="checkbox"
+                  checked={destaquePreview}
+                  onChange={(event) => setDestaquePreview(event.target.checked)}
+                />
+                Enviar <code>destaque=true</code>
+              </label>
+              <Saudacao nome={nomePreview.trim() || 'Visitante'} cargo="Prop recebida do componente pai" destaque={destaquePreview} />
             </div>
           </div>
 
