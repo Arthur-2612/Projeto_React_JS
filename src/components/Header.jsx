@@ -29,7 +29,9 @@ function Header({ activeSection, onNavigate, progress }) {
             <a className="header__logo-text" href="#hero" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>React Lab</a>
           </div>
 
-          <span className="header__progress-label" aria-live="polite">Aula {Math.min(6, Math.floor((progress / 100) * 6) + 1)} de 6</span>
+          <span className="header__progress-label" aria-live="polite">
+            Aula {navItems.findIndex((item) => item.id === activeSection) + 1} de {navItems.length}
+          </span>
 
           {/* Navegação — renderização de lista com Keys + condicional de classe ativa */}
           <nav className="header__nav" aria-label="Navegação principal">
