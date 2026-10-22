@@ -34,7 +34,9 @@ function CardItem({ nome, descricao, emoji }) {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div
+    <button
+      type="button"
+      className={`component-demo-card ${expanded ? 'is-expanded' : ''}`}
       style={{
         background: 'var(--color-surface)',
         border: '1px solid var(--color-border)',
@@ -43,7 +45,7 @@ function CardItem({ nome, descricao, emoji }) {
         transition: 'var(--transition)',
         cursor: 'pointer',
       }}
-      onClick={() => setExpanded(!expanded)}
+      onClick={() => setExpanded((atual) => !atual)}
       id={`card-item-${nome.replace(/\s+/g, '-').toLowerCase()}`}
       aria-expanded={expanded}
     >
@@ -72,7 +74,7 @@ function CardItem({ nome, descricao, emoji }) {
           {descricao}
         </p>
       )}
-    </div>
+    </button>
   )
 }
 
@@ -147,7 +149,7 @@ function SecaoComponentes() {
               ))}
             </div>
 
-            <Rodape texto="© 2025 React Lab — Todos os direitos reservados" />
+            <Rodape texto="Uma interface pequena, feita de peças que podem ser combinadas." />
           </div>
 
           {/* Coluna 2: Árvore de componentes e código */}
@@ -183,7 +185,7 @@ function SecaoComponentes() {
               <strong>📌 Regras dos Componentes:</strong>
               <ul style={{ marginTop: '8px', paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <li>Nome sempre com <strong>letra maiúscula</strong></li>
-                <li>Deve retornar apenas <strong>um elemento raiz</strong></li>
+                <li>Pode retornar JSX, um <strong>Fragment</strong> ou outro nó React</li>
                 <li>Dados externos vêm por <strong>props</strong></li>
                 <li>Estado interno via <strong>useState</strong></li>
               </ul>
