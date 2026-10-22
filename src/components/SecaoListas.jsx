@@ -236,8 +236,8 @@ function SecaoListas() {
             </div>
 
             <div className="info-panel" style={{ marginTop: '16px' }}>
-              <strong>🔑 Por que key?</strong> O React usa a key para identificar qual item mudou.
-              Sem key, o React precisa recriar toda a lista. Com key, só o item alterado é atualizado.
+              <strong>🔑 Por que key?</strong> A key dá uma identidade estável a cada item para o React associar elementos entre renderizações.
+              Ela ajuda a preservar o estado correto quando itens entram, saem ou mudam de posição — não promete uma quantidade específica de atualizações no DOM.
               <br /><br />
               <strong>⚠️ Evite:</strong> usar o índice do array como key quando a lista pode ser
               reordenada ou filtrada — prefira sempre um ID único.
